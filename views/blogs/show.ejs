@@ -1,0 +1,57 @@
+<%- include('../partials/header') -%>
+<div class="container" style="text-align: center;
+margin: 20px; padding-top: 5px;">
+  <div class="card" style=" padding-top: 8px;">
+      <h2><%= blog.title %></h2>
+    <img style="
+  height: auto;  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0.1px;
+  width: 50%;" class="card-img-top" src="<%= blog.image %>">
+    <div class="card-body" style="padding-bottom: 0.1px;">
+        <em style="float:left;">Submitted By <%= blog.author.username %></em>
+        <span style="font-size: 1em; float:right;" class="lead"><%= blog.created.toDateString()%></span>
+    </div>
+    <hr>
+
+    <p class="card-text"><%= blog.body %></p>
+    <% if(user && blog.author.id.equals(user._id)) {%>
+      <span style="padding-bottom: 5px;">
+    <a href="/blog/<%=blog._id%>/edit" class="btn btn-sm btn-warning">Edit</a>
+
+    <form style="display: inline;" action="/blog/<%=blog._id%>?_method=DELETE" method="post">
+    <button class="btn btn-sm btn-danger">Delete</button>
+    </form>
+    </span>
+  <% } %>
+  </div>
+
+  <div style="background: #d9d9d9 ; padding-top: 9px;">
+    <div style="text-align:left; margin-left: 15px; font-size: 1.5em;">
+        Comments
+      <span style="float:right; padding-right: 13px;">
+      <a href="/blog/<%= blog._id%>/comments/new" class="btn btn-success">Add Comment</a>
+      </span>
+    </div>
+    <hr>
+    <div class="row" style="font-size: 0.85em;">
+      <div class="col-md-12">
+        <% blog.comments.forEach(function(comment){ %>
+          <strong><%= comment.author.username %></strong>
+          <p class="comment">  <%= comment.text %></p>
+          <% if(user && comment.author.id.equals(user._id)) {%>
+          <a href="/blog/<%=blog._id%>/comments/<%=comment._id%>/edit"
+            class="btn btn-sm btn-warning">Edit</a>
+          <form style="display: inline;" action="/blog/<%=blog._id%>/comments/<%=comment._id%>?_method=DELETE" method="post">
+            <button class="btn btn-sm btn-danger">Delete</button>
+          </form>
+            <%  } %>
+            <hr>
+      <%  }) %>
+      </div>
+
+    </div>
+  </div>
+</div>
+<%- include('../partials/footer') -%>

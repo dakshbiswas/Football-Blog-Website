@@ -1,0 +1,30 @@
+<%- include('../partials/header') -%>
+
+<div class="container">
+  <div class="column">
+<h1 style="text-align: center; margin: 23px;">CREATE A NEW BLOG</h1>
+<div style="width: 40%; margin: 0 auto;">
+<form action="/blog" method="post">
+
+    <div class="form-group">
+    <input class="form-control" type="text" name="blog[title]" placeholder="Title">
+    </div>
+
+    <div class="form-group">
+    <input class="form-control" type="text" name="blog[image]" placeholder="Image">
+    </div>
+
+    <div class="form-group">
+      <textarea class="form-control" name="blog[body]" rows="10" placeholder="Content goes here"></textarea>
+    </div>
+
+    <button style="margin-bottom: 10px;" class="btn btn-dark btn-block">Submit</button>
+
+</form>
+<a href="/blog">Go Back</a>
+</div>
+
+</div>
+  </div>
+
+<%- include('../partials/footer') -%>
